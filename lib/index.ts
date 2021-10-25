@@ -31,9 +31,6 @@ export class StatusPageDeadMansSwitch extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: StatusPageDeadMansSwitchProps) {
     super(scope, id);
 
-    cdk.Tags.of(this).add("OutageMessage", props.outageMessage)
-    cdk.Tags.of(this).add("StatusPageComponentId", props.statusPageComponentId)
-
     const metric = new cloudwatch.Metric({
       metricName: props.cloudwatchMetric,
       namespace: props.cloudwatchNamespace
@@ -61,5 +58,8 @@ export class StatusPageDeadMansSwitch extends cdk.Construct {
       protocol: sns.SubscriptionProtocol.HTTPS
     })
     alarmTopic.addSubscription(subscription)
+
+    cdk.Tags.of(this).add("OutageMessage", props.outageMessage)
+    cdk.Tags.of(this).add("StatusPageComponentId", props.statusPageComponentId)
   }
 }
