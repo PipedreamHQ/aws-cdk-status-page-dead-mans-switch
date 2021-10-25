@@ -42,12 +42,12 @@ export class StatusPageDeadMansSwitch extends cdk.Construct {
     const alarm = new cloudwatch.Alarm(this, 'DeadMansSwitchAlarm', {
       metric,
       threshold: 0,
-      evaluationPeriods: 2,
-      datapointsToAlarm: 2,
+      evaluationPeriods: 1,
+      datapointsToAlarm: 1,
       actionsEnabled: true,
       alarmName: props.cloudwatchMetric,
       comparisonOperator: cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
-      period: cdk.Duration.seconds(60),
+      period: cdk.Duration.seconds(120),
       statistic: 'Sum',
       treatMissingData: cloudwatch.TreatMissingData.BREACHING
     });
